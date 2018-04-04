@@ -14,10 +14,11 @@ enum Direction: String {
     mutating func setWithSpeed(_ speed: Int, andGear gear: Int) {
         let standSpeed = 0
         let rewGear    = -1
+        let standGear  = 0
         
         if speed == standSpeed {
             self = .stand
-        } else {
+        } else if gear != standGear {
             self = gear == rewGear ? .backward : .forward
         }
     }
