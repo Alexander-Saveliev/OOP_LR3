@@ -20,16 +20,11 @@ class Calculator {
     }
     
     private func isIdentifierExist(_ name: String) -> Bool {
-        if listOfIdentifiers.index(where: { $0.getName() == name }) != nil {
-            return true
-        } else {
-            return false
-        }
+        return listOfIdentifiers.index(where: { $0.getName() == name }) != nil
     }
     
     private func printElementsOfType(_ neededType: Identifier.Type) {
-        for element in listOfIdentifiers.sorted(by: { $0.getName() > $1.getName() }) where type(of: element) == neededType {
-            
+        for element in listOfIdentifiers.sorted(by: { $0.getName() < $1.getName() }) where type(of: element) == neededType {
             print(element.getName(), ": ", element.getValueToString())
         }
     }
@@ -43,19 +38,11 @@ class Calculator {
     }
     
     func getValueOfIdentifier(_ name: String) -> Double? {
-        if let element = getElementByName(name) {
-            return element.calculate()
-        } else {
-            return nil
-        }
+        return getElementByName(name)?.calculate()
     }
     
     func getValueOfIdentifierToString(_ name: String) -> String {
-        if let element = getElementByName(name) {
-            return element.getValueToString()
-        } else {
-            return "unknown identifier"
-        }
+        return getElementByName(name)?.getValueToString() ?? "unknown identifier"
     }
     
     

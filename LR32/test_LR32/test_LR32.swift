@@ -214,8 +214,4 @@ class test_LR32: XCTestCase {
         XCTAssertEqual(calculator.getValueOfIdentifierToString("fib7"), "13.00")
         XCTAssertEqual(calculator.getValueOfIdentifierToString("fib8"), "21.00")
     }
-    
-    
-    
-    
 }

@@ -7,16 +7,24 @@
 //
 
 class Function: Identifier {
-    private let name: String
-    private var value: Double? {
-        didSet {
-            if value == nil {
-                for dependence in dependencies {
-                    dependence.setToNil()
-                }
-            }
-        }
+    init(withName name: String, left: Identifier, operation: Operation, right: Identifier) {
+        self.leftOperand  = left
+        self.rightOperand = right
+        self.operation    = operation
+        self.name         = name
+        
+        left.dependencies.append(self)
+        right.dependencies.append(self)
     }
+    
+    init(withName name: String, left: Identifier) {
+        self.leftOperand = left
+        self.operation   = .unary
+        self.name        = name
+        
+        left.dependencies.append(self)
+    }
+    
     var dependencies = [Function]()
     
     private var leftOperand : Identifier?
@@ -43,21 +51,14 @@ class Function: Identifier {
         value = nil
     }
     
-    init(withName name: String, left: Identifier, operation: Operation, right: Identifier) {
-        leftOperand = left
-        rightOperand = right
-        self.operation = operation
-        self.name = name
-        
-        left.dependencies.append(self)
-        right.dependencies.append(self)
-    }
-    
-    init(withName name: String, left: Identifier) {
-        leftOperand = left
-        operation = .unary
-        self.name = name
-        
-        left.dependencies.append(self)
+    private let name: String
+    private var value: Double? {
+        didSet {
+            if value == nil {
+                for dependence in dependencies {
+                    dependence.setToNil()
+                }
+            }
+        }
     }
 }

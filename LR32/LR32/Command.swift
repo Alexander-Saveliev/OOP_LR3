@@ -11,5 +11,4 @@ enum Command {
     case variable(String)
     case setValue(String, Double)
     case setVar(String, String)
-    
 }
